@@ -22,10 +22,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-              <ThirdwebProvider>
-
-          {children}
-              </ThirdwebProvider>
+            <ThirdwebProvider>{children}</ThirdwebProvider>
         </ThemeProvider>
       </body>
     </html>

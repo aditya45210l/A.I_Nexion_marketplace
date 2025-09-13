@@ -6,6 +6,7 @@ import {
   Bot,
   Command,
   Frame,
+  Landmark,
   LifeBuoy,
   Map,
   PieChart,
@@ -27,6 +28,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { Button } from "./ui/button"
+import { redirect } from "next/navigation"
 
 const data = {
   user: {
@@ -42,15 +45,15 @@ const data = {
       isActive: true,
       items: [
         {
-          title: "History",
+          title: "Chats",
           url: "#",
         },
         {
-          title: "Starred",
+          title: "Images",
           url: "#",
         },
         {
-          title: "Settings",
+          title: "Videos",
           url: "#",
         },
       ],
@@ -61,15 +64,15 @@ const data = {
       icon: Bot,
       items: [
         {
-          title: "Genesis",
+          title: "OpenAI",
           url: "#",
         },
         {
-          title: "Explorer",
+          title: "Claude",
           url: "#",
         },
         {
-          title: "Quantum",
+          title: "Perplexity",
           url: "#",
         },
       ],
@@ -176,8 +179,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
+        <Button onClick={() => redirect('/lend')}  className="mx-4">Lend<Landmark/></Button>
         <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
+        {/* <NavProjects projects={data.projects} /> */}
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
