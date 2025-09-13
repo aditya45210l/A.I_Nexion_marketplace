@@ -1,14 +1,20 @@
-import ThirdWebConnectButton from "@/components/layout/ThirdWebConnectButton"
-import { ModeToggle } from "@/components/Togle"
-import { Button } from "@/components/ui/button"
+import ContactSection from "@/components/contact"
+import Features from "@/components/features-11"
+import FeaturesSection from "@/components/features-8"
+import FooterSection from "@/components/footer"
+import HeroSection from "@/components/hero-section"
 
 const Home = () => {
   return (
     <div>
-      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestiae hic eveniet alias ducimus laudantium repellat distinctio amet asperiores quos, soluta voluptatem dolorem error quibusdam numquam! Tempore iure atque accusamus nisi?
-      <Button>Click me</Button>
-      <ModeToggle/>
-        <ThirdWebConnectButton/>
+      {/* <ModeToggle/>
+        <ThirdWebConnectButton/> */}
+
+        <HeroSection/>
+        <FeaturesSection/>
+        <ContactSection/>
+        <FooterSection/>
+
     </div>
   )
 }
