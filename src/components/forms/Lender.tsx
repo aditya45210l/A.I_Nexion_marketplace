@@ -54,7 +54,7 @@ export const formSchema = z.object({
 export default function LenderForm() {
   const [loading, setLoading] = useState(false);
   const activeAccount = useActiveAccount();
-   const [progress, setProgress] = useState(0); // New state for progress bar
+  const [progress, setProgress] = useState(0); // New state for progress bar
   const router = useRouter();
 
   const languages = [
@@ -143,8 +143,8 @@ export default function LenderForm() {
     { label: "Claude", value: "claude" },
     { label: "Gemini", value: "gemini" },
     { label: "Grok", value: "grok" },
-    { label: "Perplexity", value: "perplexity"}
-  ]
+    { label: "Perplexity", value: "perplexity" },
+  ];
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -178,13 +178,13 @@ export default function LenderForm() {
 
       redirect("/dashboard");
     } catch (error) {
-     setLoading(false);
+      setLoading(false);
       console.error("Form submission error", error);
       toast.error("Failed to submit the form. Please try again.");
     }
   }
 
-   useEffect(() => {
+  useEffect(() => {
     if (loading) {
       const totalDuration = 2000; // 2 seconds
       const steps = 40;
@@ -215,10 +215,8 @@ export default function LenderForm() {
     }
   }, [progress, router]);
 
-
-
-  if(loading){
-       <StatisticCard13/>
+  if (loading) {
+    <StatisticCard13 />;
   }
 
   return (
@@ -231,7 +229,7 @@ export default function LenderForm() {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="space-y-8 max-w-3xl mx-auto "
+              className="space-y-6 max-w-3xl mx-auto "
             >
               <div className="flex justify-between sm:flex-row flex-col">
                 <div className="">
@@ -469,7 +467,7 @@ export default function LenderForm() {
                       <FormLabel>Terms & Conditions</FormLabel>
                       <FormDescription>
                         I agree that the platform may temporarily store and
-                        manage this key securely (encrypted) to enable lending.
+                        manage this key encrypted to enable lending.
                       </FormDescription>
                       <FormMessage />
                     </div>
