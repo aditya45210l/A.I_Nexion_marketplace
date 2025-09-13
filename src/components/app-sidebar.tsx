@@ -6,6 +6,7 @@ import {
   Bot,
   Command,
   Frame,
+  HandCoins,
   Landmark,
   LifeBuoy,
   Map,
@@ -179,7 +180,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <Button onClick={() => redirect('/lend')}  className="mx-4">Lend<Landmark/></Button>
+        <Button variant={'outline'} onClick={() => redirect('/lend')}  className="mx-4">Lend<Landmark/></Button>
+        <Button variant={'default'} onClick={() => redirect('/borrow')}  className="mx-4">Borrorw <HandCoins/></Button>
         <NavMain items={data.navMain} />
         {/* <NavProjects projects={data.projects} /> */}
         <NavSecondary items={data.navSecondary} className="mt-auto" />

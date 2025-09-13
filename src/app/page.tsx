@@ -6,7 +6,7 @@ import HeroSection from "@/components/hero-section"
 
 const Home = () => {
   return (
-    <div>
+    <div className="">
       {/* <ModeToggle/>
         <ThirdWebConnectButton/> */}
 

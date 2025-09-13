@@ -2,6 +2,7 @@
 export type WsStatus = 'Connecting' | 'Connected' | 'Disconnected';
 
 type StatusListener = (status: WsStatus) => void;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type MessageListener = (data: any) => void;
 
 class WebSocketService {
