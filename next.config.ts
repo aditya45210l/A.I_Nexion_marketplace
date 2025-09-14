@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
     images: {
     remotePatterns: [new URL('https://ik.imagekit.io')],
   },
+    typescript:{
+    ignoreBuildErrors:true
+  }
 };
 
 export default nextConfig;

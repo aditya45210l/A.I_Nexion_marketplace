@@ -6,20 +6,21 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardToolbar } fro
 
 import { Separator } from '@/components/ui/separator';
 import {
-  BadgeAlertIcon,
+  // BadgeAlertIcon,
   CheckCircle,
-  MoreHorizontal,
-  Pin,
-  Settings,
-  Share2,
-  Trash,
+  // MoreHorizontal,
+  // Pin,
+  // Settings,
+  // Share2,
+  // Trash,
   TrendingDown,
   TrendingUp,
-  TriangleAlert,
+  // TriangleAlert,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { keysType } from '@/app/(root)/borrow/page';
 
-export default function ApiForRentCard({provider,model,price,owner}:{provider:string,model:string,price:string,owner:string}) {
+export default function ApiForRentCard({keyProps}:{keyProps:keysType}) {
   const performance = [
     {
       label: 'Deals Closed',
@@ -62,14 +63,19 @@ export default function ApiForRentCard({provider,model,price,owner}:{provider:st
     },
   ];
 
+  const handleRentApiKey = async () => {
+
+    console.log(keyProps);
+  }
+
   return (
     <div className="flex items-center justify-center ">
       {/* Card */}
       <Card className="w-full md:w-96">
         <CardHeader className="h-auto py-4">
           <CardTitle className="flex flex-col gap-1">
-            <span>Staff Performance</span>
-            <span className="text-xs font-normal text-muted-foreground">Sales Manager</span>
+            <span>{keyProps.provider}</span>
+            <span className="text-xs font-normal text-muted-foreground">{keyProps.model}</span>
           </CardTitle>
           <CardToolbar>
             {/* <DropdownMenu>
@@ -158,11 +164,12 @@ export default function ApiForRentCard({provider,model,price,owner}:{provider:st
           </div>
         </CardContent>
         <CardFooter className="flex gap-2.5 h-auto py-3.5">
-          <Button variant="outline" className="flex-1">
+
+            <Button onClick={handleRentApiKey} variant="outline" className="flex-1">
             Rent
           </Button>
           <Button variant="primary" className="flex-1">
-            Full Report
+            Dashboard
           </Button>
         </CardFooter>
       </Card>

@@ -1,7 +1,7 @@
 import connectToDatabase from "@/lib/db/db.confing";
 import { NextRequest } from "next/server";
 import APIKey from "@/lib/db/models/ApiKey.model";
-import {  encryptAPIKey } from "@/lib/EncryptDecript";
+import { encryptAPIKey } from "@/lib/EncryptDecript";
 
 export const POST = async (res: NextRequest) => {
   try {
@@ -10,6 +10,7 @@ export const POST = async (res: NextRequest) => {
     await connectToDatabase();
 
     const prepareKey = {
+      id: crypto.randomUUID(),
       provider: body.provider,
       model: body.model,
       encryptedKey: encryptAPIKey(body.key),
@@ -38,5 +39,12 @@ export const POST = async (res: NextRequest) => {
     );
   } catch (err) {
     console.log(err);
+    return Response.json(
+      {
+        message: "Error fetching keys",
+        error: err,
+      },
+      { status: 500 }
+    );
   }
 };

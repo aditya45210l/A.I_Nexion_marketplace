@@ -3,12 +3,12 @@ import mongoose from 'mongoose';
 
 const APIKeySchema = new mongoose.Schema({
   // Basic Info
-  // id: { type: String, required: true, unique: true },
-  // lenderAddress: { 
-  //   type: String, 
-  //   required: true,
-  //   index: true  // To quickly find all keys by a lender
-  // },
+  id: { type: String, required: true, unique: true },
+  lenderAddress: { 
+    type: String, 
+    required: true,
+    index: true  // To quickly find all keys by a lender
+  },
   provider: { 
     type: String, 
     enum: ['openai', 'claude', 'gemini', 'grok', 'perplexity'],
@@ -16,6 +16,7 @@ const APIKeySchema = new mongoose.Schema({
     index: true  // To filter keys by provider
   },
   model:{ type: String, required:true },// 'gpt-4', 'claude-3-sonnet', etc.
+  status:{ type: String, required:false,enum:['active','inactive','rented',],default:'active' },// 'gpt-4', 'claude-3-sonnet', etc.
   
   // 🔐 SECURITY
   encryptedKey: { type: String, required: true },  // The encrypted API key
@@ -59,21 +60,9 @@ const APIKeySchema = new mongoose.Schema({
       earnings: Number,     // Money earned this day
       avgResponseTime: Number,
       errors: Number        // Failed calls
-    }],
-    
-    // 👥 USER BEHAVIOR
-    // uniqueUsers: { type: Number, default: 0 },         // How many different people used it
-    // repeatCustomers: { type: Number, default: 0 },     // People who used it multiple times
-    // averageSessionLength: { type: Number, default: 0 }  // In minutes
+    }]
+    ,
   },
-  
-  // 🏆 REPUTATION
-  // reputation: {
-  //   rating: { type: Number, default: 5.0 },
-  //   totalReviews: { type: Number, default: 0 },
-  //   featured: { type: Boolean, default: false },
-  //   verified: { type: Boolean, default: false }
-  // }
 }, { timestamps: true });
 
 // 🔍 INDEXES FOR FAST QUERIES

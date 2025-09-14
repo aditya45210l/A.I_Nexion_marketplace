@@ -17,7 +17,6 @@ import {
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -180,7 +179,6 @@ export default function LenderForm() {
     } catch (error) {
       setLoading(false);
       console.error("Form submission error", error);
-      toast.error("Failed to submit the form. Please try again.");
     }
   }
 

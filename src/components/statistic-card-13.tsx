@@ -7,7 +7,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { MoreVertical, Pin, Settings, Share2, ShieldCheck, Trash, TriangleAlert } from 'lucide-react';
+import { MoreVertical, Pin, Settings, Share2, ShieldCheck, TriangleAlert } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export default function StatisticCard13() {
