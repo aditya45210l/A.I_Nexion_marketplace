@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { keysType } from '@/app/(root)/borrow/page';
+import axios from 'axios';
 
 export default function ApiForRentCard({keyProps}:{keyProps:keysType}) {
   const performance = [
@@ -64,8 +65,13 @@ export default function ApiForRentCard({keyProps}:{keyProps:keysType}) {
   ];
 
   const handleRentApiKey = async () => {
-
-    console.log(keyProps);
+    // Implement the logic to handle renting the API key
+    try {
+      const response = await axios.post('/api/v1/action/create-new-session', keyProps);
+      console.log("Response from renting API key:",response);
+  }catch (error) {
+      console.error('Error renting API key:', error);
+    }
   }
 
   return (
