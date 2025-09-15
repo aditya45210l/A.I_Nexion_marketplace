@@ -1,3 +1,4 @@
+
 import StatisticCard1 from "@/components/statistic-card-1"
 import ApiForRentCard from "@/components/statistic-card-6"
 import { fetchActiveKeys } from "@/lib/actions/GetActiveKeys";
@@ -20,8 +21,8 @@ export interface keysType{
 }
 
 const page = async () => {
-  const apiData =  await fetchActiveKeys();
-  const data = apiData.keys;
+  const data =  await fetchActiveKeys();
+
   console.log("data from borrow page",data);
   
   return (

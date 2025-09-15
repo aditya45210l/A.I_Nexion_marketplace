@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import React from "react";
 import { cn } from "@/lib/utils";
 import ThirdWebConnectButton from "./layout/ThirdWebConnectButton";
-import { ModeToggle } from "./Togle";
+// import { ModeToggle } from "./Togle";
 import { useActiveAccount } from "thirdweb/react";
 import { redirect } from "next/navigation";
 
@@ -48,9 +48,10 @@ export const HeroHeader = () => {
               <Link
                 href="/"
                 aria-label="home"
-                className="flex items-center space-x-2"
+                className="flex items-center space-x-2 text-xl"
               >
-                <Logo />
+                {/* <Logo />  */}
+                KeyFlow 
               </Link>
 
               <button
