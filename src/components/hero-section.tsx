@@ -108,7 +108,7 @@ export default function HeroSection() {
                                     speedSegment={0.3}
                                     as="h1"
                                     className="mx-auto mt-8 max-w-4xl text-balance text-5xl max-md:font-semibold md:text-7xl lg:mt-16 xl:text-[5.25rem]">
-                                    Modern Solutions for Customer Engagement
+                                    Rent AI Power, Earn While You Sleep
                                 </TextEffect>
                                 <TextEffect
                                     per="line"
@@ -117,7 +117,7 @@ export default function HeroSection() {
                                     delay={0.5}
                                     as="p"
                                     className="mx-auto mt-8 max-w-2xl text-balance text-lg">
-                                    Highly customizable components for building modern websites and applications that look and feel the way you mean it.
+                                    The first decentralized marketplace for AI API keys - unlock premium AI services or monetize your unused capacity
                                 </TextEffect>
 
                                 <AnimatedGroup
