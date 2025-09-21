@@ -1,5 +1,4 @@
 'use client';
-
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardToolbar } from '@/components/ui/card';
@@ -20,6 +19,7 @@ import {
 import { cn } from '@/lib/utils';
 import { keysType } from '@/app/(root)/borrow/page';
 import axios from 'axios';
+import { RentDialog } from './marketplace/RentDialog';
 
 export default function ApiForRentCard({keyProps}:{keyProps:keysType}) {
   const performance = [
@@ -63,16 +63,6 @@ export default function ApiForRentCard({keyProps}:{keyProps:keysType}) {
       color: 'text-destructive',
     },
   ];
-
-  const handleRentApiKey = async () => {
-    // Implement the logic to handle renting the API key
-    try {
-      const response = await axios.post('/api/v1/action/create-new-session', keyProps);
-      console.log("Response from renting API key:",response);
-  }catch (error) {
-      console.error('Error renting API key:', error);
-    }
-  }
 
   return (
     <div className="flex items-center justify-center ">
@@ -170,10 +160,11 @@ export default function ApiForRentCard({keyProps}:{keyProps:keysType}) {
           </div>
         </CardContent>
         <CardFooter className="flex gap-2.5 h-auto py-3.5">
-
+{/* 
             <Button onClick={handleRentApiKey} variant="outline" className="flex-1">
             Rent
-          </Button>
+          </Button> */}
+          <RentDialog  data={keyProps}/>
           <Button variant="primary" className="flex-1">
             Dashboard
           </Button>

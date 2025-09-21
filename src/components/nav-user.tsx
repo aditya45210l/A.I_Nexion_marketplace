@@ -27,7 +27,8 @@ import {
 
   useSidebar,
 } from "@/components/ui/sidebar"
-import ThirdWebConnectButton from "./layout/ThirdWebConnectButton"
+
+import { TestConnectButton } from "./layout/TestConnectButton"
 
 export function NavUser({
   user,
@@ -110,7 +111,7 @@ export function NavUser({
     //   </SidebarMenuItem>
     // </SidebarMenu>
     <>
-    <ThirdWebConnectButton/>
+    <TestConnectButton/>
     </>
   )
 }

@@ -1,14 +1,16 @@
 "use client";
 import Link from "next/link";
-import { Logo } from "@/components/logo";
+import '@rainbow-me/rainbowkit/styles.css'
+
 import { Menu, SquareArrowOutUpRight, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import React from "react";
 import { cn } from "@/lib/utils";
-import ThirdWebConnectButton from "./layout/ThirdWebConnectButton";
+
 // import { ModeToggle } from "./Togle";
-import { useActiveAccount } from "thirdweb/react";
 import { redirect } from "next/navigation";
+import { TestConnectButton } from "./layout/TestConnectButton";
+import { useActiveAccount } from "thirdweb/react";
 
 const menuItems = [
   { name: "Features", href: "#link" },
@@ -20,8 +22,11 @@ const menuItems = [
 export const HeroHeader = () => {
   const [menuState, setMenuState] = React.useState(false);
   const [isScrolled, setIsScrolled] = React.useState(false);
+  // const account = useAccount();
   const account = useActiveAccount();
   console.log("Active account:", account);
+  // const account = useActiveAccount();
+  // console.log("Active account:", account);
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -103,13 +108,18 @@ export const HeroHeader = () => {
                     DashBoard <SquareArrowOutUpRight />
                   </Button>
                 ) : (
-                  <ThirdWebConnectButton
+                  // <ThirdWebConnectButton
+                    
+                  // >
+                  //   <Link href="#">
+                  //     <span>Connect</span>
+                  //   </Link>
+                  // </ThirdWebConnectButton>
+                  <TestConnectButton
                     
                   >
-                    <Link href="#">
-                      <span>Connect</span>
-                    </Link>
-                  </ThirdWebConnectButton>
+
+                  </TestConnectButton>
                 )}
                 {/* <Button
                                     asChild

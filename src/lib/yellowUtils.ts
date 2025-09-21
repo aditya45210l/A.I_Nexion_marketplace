@@ -68,3 +68,11 @@ export const removeJWT = (): void => {
         localStorage.removeItem(JWT_KEY);
     } catch {}
 };
+
+export const clearData = ():void =>{
+    try {
+        localStorage.clear();
+        
+    } catch {}
+
+}

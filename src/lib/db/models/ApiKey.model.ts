@@ -59,7 +59,7 @@ const APIKeySchema = new mongoose.Schema({
       calls: Number,        // Calls made this day
       earnings: Number,     // Money earned this day
       avgResponseTime: Number,
-      errors: Number        // Failed calls
+      error: Number        // Failed calls
     }]
     ,
   },

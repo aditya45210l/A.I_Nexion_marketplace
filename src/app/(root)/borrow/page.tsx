@@ -1,8 +1,7 @@
 
 import StatisticCard1 from "@/components/statistic-card-1"
-import ApiForRentCard from "@/components/statistic-card-6"
 import { fetchActiveKeys } from "@/lib/actions/GetActiveKeys";
-
+import RentCardContainer from "@/components/marketplace/RentCardContainer";
 export interface keysType{
   id:string,
   lenderAddress:string,
@@ -22,20 +21,13 @@ export interface keysType{
 
 const page = async () => {
   const data =  await fetchActiveKeys();
-
+  
   console.log("data from borrow page",data);
   
   return (
     <div className="p-6 lg:p-8 flex flex-col gap-12">
         <StatisticCard1/>
-        <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
-          {
-            data && data.length > 0 ? data.map((keyProps:keysType) =>{
-              return <ApiForRentCard key={keyProps.id} keyProps={keyProps}/>
-            }): <p className="text-center text-muted-foreground col-span-3">No API Keys available for rent at the moment.</p>
-          }
-
-        </div>
+<RentCardContainer data={data}/>
     </div>
   )
 }
