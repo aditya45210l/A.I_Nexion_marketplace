@@ -22,6 +22,7 @@ const SessionSchema = new mongoose.Schema(
     },
     lenderAddress: String, // Denormalized for faster queries
     signature: { require: true, type: String },
+    lender_apiKey:{type: String,require: true},
 
     // 💰 FINANCIAL TRACKING
     // financial: {
@@ -31,6 +32,13 @@ const SessionSchema = new mongoose.Schema(
     //   lenderEarnings: { type: Number, default: 0 },       // What lender gets ($3.15)
     //   remainingBalance: { type: Number, required: true }   // What's left ($6.50)
     // },
+    keyAuth:{
+      privateKey: {type: String},
+      jwt_auth:{type:String},
+      proxyAddress:{type:String},
+      exp_time:{type:String},
+      isBlackList:{type: Boolean,default:false}
+    },
 
     // 📊 USAGE TRACKING
     usage: {
@@ -43,6 +51,7 @@ const SessionSchema = new mongoose.Schema(
       averageResponseTime: { type: Number, default: 0 },
       fastestResponse: { type: Number, default: 0 },
       slowestResponse: { type: Number, default: 0 },
+
 
       // 📝 CALL LOG (For analytics)
       callHistory: [
@@ -76,7 +85,7 @@ const SessionSchema = new mongoose.Schema(
 
     provider: String, // Denormalized: 'openai', 'claude'
     model: String, // Denormalized: 'gpt-4', 'claude-3'
-    api_end_point: { type: String, required: true },
+    proxyKey: { type: String, required: true },
 
     // ⚙️ SESSION SETTINGS
     settings: {

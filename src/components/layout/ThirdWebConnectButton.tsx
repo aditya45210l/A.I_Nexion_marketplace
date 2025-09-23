@@ -29,12 +29,12 @@ const wallets = [
 
 
 
-console.log("Active account:", account);
-console.log("Active wallet:", wallet);
-const signIn = async() =>{
-  const hash = await account?.signMessage({message:"hello world"});
-console.log("Active hash:", hash);
-}
+// console.log("Active account:", account);
+// console.log("Active wallet:", wallet);
+// const signIn = async() =>{
+//   const hash = await account?.signMessage({message:"hello world"});
+// console.log("Active hash:", hash);
+// }
   // if(!account) return <div>loading...</div>
 
 return (

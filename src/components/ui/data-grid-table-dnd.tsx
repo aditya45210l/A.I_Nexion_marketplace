@@ -56,6 +56,7 @@ function DataGridTableDndHeader<TData>({ header }: { header: Header<TData, unkno
         <Button
           mode="icon"
           size="sm"
+          
           variant="dim"
           className="-ms-2 size-6"
           {...attributes}

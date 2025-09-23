@@ -46,15 +46,15 @@ const data = {
       items: [
         {
           title: "Chats",
-          url: "#",
+          url: "/play-ground/chat",
         },
         {
           title: "Images",
-          url: "#",
+          url: "/play-ground/image",
         },
         {
           title: "Videos",
-          url: "#",
+          url: "/play-ground/videos",
         },
       ],
     },
@@ -178,7 +178,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="overflow-hidden!">
         <Button variant={'outline'} onClick={() => redirect('/lend')}  className="mx-4">Lend<Landmark/></Button>
         <Button variant={'default'} onClick={() => redirect('/borrow')}  className="mx-4">Borrorw <HandCoins/></Button>
         <NavMain items={data.navMain} />

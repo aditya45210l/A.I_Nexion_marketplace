@@ -6,7 +6,7 @@ import { SearchForm } from "@/components/search-form";
 import {
   Breadcrumb,
   BreadcrumbItem,
-  BreadcrumbLink,
+
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
@@ -14,7 +14,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useSidebar } from "@/components/ui/sidebar";
-import { redirect } from "next/navigation";
 import Link from "next/link";
 
 export function SiteHeader() {

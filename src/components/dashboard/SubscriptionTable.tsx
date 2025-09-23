@@ -33,15 +33,16 @@ import { SquareChevronRight } from "lucide-react";
 
 export interface IData {
   id: string;
+  _id: string;
   provider: string;
   //   availability: 'online' | 'away' | 'busy' | 'offline';
   model: string;
   status: "active" | "inactive" | "rented";
   lenderAddress: string; // Emoji flags
   BorrowerAddress: string;
-  api_key?: string;
-  api_total_calls?: number;
-  revenue: number;
+  api_key: string;
+  api_total_calls: number;
+  amount: number;
 }
 
 // const demoData: IData[] = [
@@ -222,14 +223,16 @@ export default function SubscriptionTable({
   type: "lender" | "borrower";
   data: IData[];
 }) {
-  console.log("data from table: ",demoData);
+  console.log("data from table: ", demoData);
+
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 5,
   });
   const [sorting, setSorting] = useState<SortingState>([
-    { id: "name", desc: true },
+    { id: "id", desc: true },
   ]);
+  console.log(demoData);
   const columns = useMemo<ColumnDef<IData>[]>(
     () => [
       {
@@ -245,18 +248,47 @@ export default function SubscriptionTable({
         },
       },
       {
+        accessorKey: "model",
+        header: "Model",
+        cell: (info) => (
+          <span className="font-medium">{info.getValue() as string}</span>
+        ),
+        size: 100,
+        meta: {
+          headerClassName: "",
+          cellClassName: "",
+        },
+      },
+      {
+        accessorKey: "api_key",
+        header: "Api key",
+        cell: (info) => (
+          <div>
+            {" "}
+            {/* <CopyAddress
+              text={formatAddress(info.getValue() as Address)}
+              copyText={info.getValue() as string}
+            /> */}
+            <CopyTextComp text={info.getValue() as string} />
+          </div>
+        ),
+        size: 100,
+        meta: {
+          headerClassName: "",
+          cellClassName: "",
+        },
+      },
+      {
         accessorKey: "lenderAddress",
         header: "Lender",
         cell: (info) => (
-          // <Link href={`mailto:${info.getValue()}`} className="hover:text-primary hover:underline">
-          //   {info.getValue() as string}
-          // </Link>
           <div>
             {" "}
-            <CopyAddress
+            {/* <CopyAddress
               text={formatAddress(info.getValue() as Address)}
               copyText={info.getValue() as string}
-            />
+            /> */}
+            <CopyTextComp text={info.getValue() as string} />
           </div>
         ),
         size: 100,
@@ -271,10 +303,11 @@ export default function SubscriptionTable({
         cell: (info) => (
           <div>
             {" "}
-            <CopyAddress
+            {/* <CopyAddress
               text={formatAddress(info.getValue() as Address)}
               copyText={info.getValue() as string}
-            />
+            /> */}
+            <CopyTextComp text={info.getValue() as string} />
           </div>
         ),
         size: 100,
@@ -308,11 +341,16 @@ export default function SubscriptionTable({
         },
       },
       {
-        accessorKey: "revenue",
-        header: "Revenue($)",
+        accessorKey: "amount",
+        header: type === "lender" ? "Revenue($)" : "Spend($)",
         cell: (info) => (
-          <span className="font-semibold">
-            ${(info.getValue() as number).toFixed(2)}
+          <span
+            className={`font-semibold ${
+              type === "lender" ? "text-green-500" : "text-red-500"
+            }`}
+          >
+            {type === "borrower" ? "-" : null}$
+            {(info.getValue() as number).toFixed(2)}
           </span>
         ),
         size: 75,
@@ -322,9 +360,9 @@ export default function SubscriptionTable({
         },
       },
       {
-        accessorKey: "more",
+        accessorKey: "id",
         header: "More",
-        cell: (info) => (
+        cell: () => (
           <span className="font-semibold flex justify-end">
             <Link href={"#"}>
               <SquareChevronRight size={16} />
@@ -357,7 +395,10 @@ export default function SubscriptionTable({
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
   });
-
+  console.log("table: ", table);
+  if (!demoData) {
+    return;
+  }
   return (
     <DataGrid table={table} recordCount={demoData?.length || 0}>
       <div className="w-full space-y-2.5">
@@ -373,7 +414,7 @@ export default function SubscriptionTable({
   );
 }
 import { Code } from "@/components/ui/code";
-import { type Address } from "thirdweb";
+import CopyTextComp from "../code/copy-button";
 
 export function CopyAddress({
   text,
@@ -389,5 +430,7 @@ export function CopyAddress({
   );
 }
 
-export const formatAddress = (address: Address) =>
-  `${address.slice(0, 4)}...${address.slice(-4)}`;
+export const formatAddress = (address: string) =>
+  `${address.slice(0, 3)}...${address.slice(-3)}`;
+export const formatApi = (api: string) =>
+  `${api.slice(0, 3)}...${api.slice(-3)}`;

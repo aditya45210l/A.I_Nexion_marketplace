@@ -14,6 +14,8 @@
 import SwitchTabs from "@/components/dashboard/SwitchTabs";
 import { Separator } from "@/components/ui/separator";
 import DashboardChart from "@/components/area-chart-1";
+import Component from "@/components/code/copy-button";
+import CopyTextComp from "@/components/code/copy-button";
 // import BalanceCardDashboard from "@/components/statistic-card-5";
 
 const Page = () => {

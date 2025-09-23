@@ -18,8 +18,9 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { keysType } from '@/app/(root)/borrow/page';
-import axios from 'axios';
+
 import { RentDialog } from './marketplace/RentDialog';
+import { redirect } from 'next/navigation';
 
 export default function ApiForRentCard({keyProps}:{keyProps:keysType}) {
   const performance = [
@@ -165,7 +166,7 @@ export default function ApiForRentCard({keyProps}:{keyProps:keysType}) {
             Rent
           </Button> */}
           <RentDialog  data={keyProps}/>
-          <Button variant="primary" className="flex-1">
+          <Button variant="default" className="flex-1" onClick={() => redirect('/dashboard')}>
             Dashboard
           </Button>
         </CardFooter>

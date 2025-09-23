@@ -18,6 +18,7 @@ import { useBasicAuth } from "@/lib/stores/AuthStore";
 
 declare global {
   interface Window {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ethereum?: any;
   }
 }
@@ -46,6 +47,7 @@ export function TestConnectButton() {
   return (
     <ConnectButton
       // autoConnect={true}
+      
       client={ThirdWebClient}
       connectModal={{
         title: "Sign in to MyApp",

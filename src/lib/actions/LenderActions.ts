@@ -6,6 +6,7 @@ export const LendTheKey = async (values: {
   key: string;
   pricePerCall: string;
   termAndConduction?: unknown;
+  usageType: string;
   lenderAddress:string;
 }) => {
   const res = await axios.post("/api/v1/forms/lend", values);

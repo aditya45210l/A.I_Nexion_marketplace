@@ -1,7 +1,7 @@
 import connectToDatabase from "@/lib/db/db.confing";
 import { NextRequest } from "next/server";
 import APIKey from "@/lib/db/models/ApiKey.model";
-import { encryptAPIKey } from "@/lib/EncryptDecript";
+import { encryptAPIKey } from "@/lib/actions/EncryptDecript";
 
 export const POST = async (res: NextRequest) => {
   try {
@@ -13,7 +13,8 @@ export const POST = async (res: NextRequest) => {
       id: crypto.randomUUID(),
       provider: body.provider,
       model: body.model,
-      encryptedKey: encryptAPIKey(body.key),
+      apiKey: body.key,
+      usageType: body.usageType,
       pricing: {
         ratePerCall: Number(body.pricePerCall),
       },

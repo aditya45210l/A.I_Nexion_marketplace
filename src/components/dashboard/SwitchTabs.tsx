@@ -6,28 +6,49 @@ import SubscriptionTable, { IData } from "./SubscriptionTable";
 import axios from "axios";
 import { useActiveAccount } from "thirdweb/react";
 import { useQuery } from "@tanstack/react-query";
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function transformKeys(rawKeys: any[], type: "lended" | "borrowed"): IData[] {
-  return rawKeys.map((item) => ({
-    id: item.id,
+if(type === 'lended'){
+  
+    return rawKeys.map((item,id) => ({
+    id: id,
+    _id:item.id,
     provider: item.provider,
     model: item.model,
     status: item.status,
     lenderAddress: item.lenderAddress,
     BorrowerAddress: item.BorrowerAddress ?? "0x0000000000000000000000000000000000000000",
-    api_key: item.encryptedKey,
+    api_key: item.apiKey,
     api_total_calls: item.analytics?.totalCallsAllTime ?? 0,
-    revenue: item.analytics?.totalEarningsAllTime ?? 0,
+    amount: item.analytics?.totalEarningsAllTime ?? 0,
   }));
+}
+else{
+    return rawKeys.map((item,id) => ({
+    id: id,
+    _id:item.appSessionId,
+    provider: item.provider,
+    model: item.model,
+    status: item.status,
+    lenderAddress: item.lenderAddress,
+    BorrowerAddress: item.borrowerAddress ?? "0x0000000000000000000000000000000000000000",
+    api_key: item.proxyKey,
+    api_total_calls: item.usage?.totalCalls ?? 0,
+    amount: item.usage?.totalTokensUsed ?? 0,
+  }));
+}
 }
 
 async function fetchDashboardData(
   address: string
 ): Promise<{ lended: IData[]; borrowed: IData[] }> {
-  const rawLended = (await axios.get(`/api/v1/fetch/borrower-keys/${address}`))
+  const  rawBorrowed = (await axios.get(`/api/v1/fetch/borrower-keys/${address}`))
     .data;
-  const rawBorrowed = (await axios.get(`/api/v1/fetch/lender-keys/${address}`))
+  const rawLended = (await axios.get(`/api/v1/fetch/lender-keys/${address}`))
     .data;
+
+    console.log("lendedKey data: ",rawLended);
+    console.log("borrower data: ",rawBorrowed);
 
   return {
     lended: transformKeys(rawLended.data, "lended"),
@@ -49,13 +70,13 @@ export default function SwitchTabs() {
 
   return (
     <Tabs defaultValue="profile" className="text-sm text-muted-foreground">
-      <TabsList className="grid w-[375px] grid-cols-2">
+      <TabsList className="grid sm:w-[375px]  grid-cols-2">
         <TabsTrigger value="profile">
-          <Landmark /> Lended key
+          <Landmark /> Lended
         </TabsTrigger>
         <TabsTrigger value="notifications">
           <HandCoins />
-          Borrowed key
+          Borrowed
           <Badge variant="destructive" shape="circle" size="xs">
             {data?.borrowed?.length ?? 0}
           </Badge>
@@ -68,7 +89,7 @@ export default function SwitchTabs() {
         ) : error ? (
           "Error loading data"
         ) : (
-          <SubscriptionTable type="lender" data={data?.lended!} />
+          <SubscriptionTable type="lender" data={data?.lended} />
         )}
       </TabsContent>
 

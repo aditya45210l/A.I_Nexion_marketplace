@@ -9,9 +9,10 @@ const APIKeySchema = new mongoose.Schema({
     required: true,
     index: true  // To quickly find all keys by a lender
   },
+  usageType:{type:String,required:true,enum:['text','image','video']},
   provider: { 
     type: String, 
-    enum: ['openai', 'claude', 'gemini', 'grok', 'perplexity'],
+    enum: ['openai', 'claude', 'gemini', 'grok', 'perplexity','vercel'],
     required: true,
     index: true  // To filter keys by provider
   },
@@ -19,7 +20,7 @@ const APIKeySchema = new mongoose.Schema({
   status:{ type: String, required:false,enum:['active','inactive','rented',],default:'active' },// 'gpt-4', 'claude-3-sonnet', etc.
   
   // 🔐 SECURITY
-  encryptedKey: { type: String, required: true },  // The encrypted API key
+  apiKey: { type: String, required: true },  // The encrypted API key
   // keyHash: String,  // Hash for verification (never store plain key)
   
   // 💰 PRICING

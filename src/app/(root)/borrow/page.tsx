@@ -8,7 +8,7 @@ export interface keysType{
   provider:string,
   model:string,
   status:string,
-  encryptedKey:string,
+  apiKey:string,
   pricing:{
     ratePerCall:number
   },

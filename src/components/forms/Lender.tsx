@@ -14,12 +14,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Command,
   CommandEmpty,
@@ -47,6 +42,7 @@ export const formSchema = z.object({
   model: z.string(),
   key: z.string(),
   pricePerCall: z.string(),
+  usageType: z.string(),
   termAndConduction: z.unknown(),
 });
 
@@ -56,42 +52,28 @@ export default function LenderForm() {
   const [progress, setProgress] = useState(0); // New state for progress bar
   const router = useRouter();
 
-  const languages = [
+  const Models = [
     {
-      label: "English",
-      value: "en",
+      label: "vercel - Demo",
+      value: "demo",
     },
     {
-      label: "French",
-      value: "fr",
+      label: "Gpt-5",
+      value: "Gpt-5",
+    },
+  ] as const;
+  const usageType = [
+    {
+      label: "Text",
+      value: "text",
     },
     {
-      label: "German",
-      value: "de",
+      label: "Image",
+      value: "image",
     },
     {
-      label: "Spanish",
-      value: "es",
-    },
-    {
-      label: "Portuguese",
-      value: "pt",
-    },
-    {
-      label: "Russian",
-      value: "ru",
-    },
-    {
-      label: "Japanese",
-      value: "ja",
-    },
-    {
-      label: "Korean",
-      value: "ko",
-    },
-    {
-      label: "Chinese",
-      value: "zh",
+      label: "Video",
+      value: "video",
     },
   ] as const;
   const pricePerCall = [
@@ -143,6 +125,7 @@ export default function LenderForm() {
     { label: "Gemini", value: "gemini" },
     { label: "Grok", value: "grok" },
     { label: "Perplexity", value: "perplexity" },
+    { label: "Vercel", value: "vercel" },
   ];
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -253,7 +236,7 @@ export default function LenderForm() {
                                       (language) =>
                                         language.value === field.value
                                     )?.label
-                                  : "Select language"}
+                                  : "Select Provider"}
                                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                               </Button>
                             </FormControl>
@@ -319,11 +302,11 @@ export default function LenderForm() {
                                 )}
                               >
                                 {field.value
-                                  ? languages.find(
+                                  ? Models.find(
                                       (language) =>
                                         language.value === field.value
                                     )?.label
-                                  : "Select language"}
+                                  : "Select Model"}
                                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                               </Button>
                             </FormControl>
@@ -334,7 +317,7 @@ export default function LenderForm() {
                               <CommandList>
                                 <CommandEmpty>No language found.</CommandEmpty>
                                 <CommandGroup>
-                                  {languages.map((language) => (
+                                  {Models.map((language) => (
                                     <CommandItem
                                       value={language.label}
                                       key={language.value}
@@ -367,7 +350,136 @@ export default function LenderForm() {
                   />
                 </div>
               </div>
-
+              <div className="flex justify-between sm:flex-row flex-col min-w-full">
+                <FormField
+                  control={form.control}
+                  name="pricePerCall"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel>Call Price</FormLabel>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <FormControl>
+                            <Button
+                              variant="outline"
+                              role="combobox"
+                              className={cn(
+                                "w-[200px] justify-between",
+                                !field.value && "text-muted-foreground"
+                              )}
+                            >
+                              {field.value
+                                ? pricePerCall.find(
+                                    (price) => price.value === field.value
+                                  )?.label
+                                : "Select Price"}
+                              <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                            </Button>
+                          </FormControl>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-[200px] p-0">
+                          <Command>
+                            <CommandInput placeholder="Search language..." />
+                            <CommandList>
+                              <CommandEmpty>No language found.</CommandEmpty>
+                              <CommandGroup>
+                                {pricePerCall.map((language) => (
+                                  <CommandItem
+                                    value={language.label}
+                                    key={language.value}
+                                    onSelect={() => {
+                                      form.setValue(
+                                        "pricePerCall",
+                                        language.value
+                                      );
+                                    }}
+                                  >
+                                    <Check
+                                      className={cn(
+                                        "mr-2 h-4 w-4",
+                                        language.value === field.value
+                                          ? "opacity-100"
+                                          : "opacity-0"
+                                      )}
+                                    />
+                                    {language.label}
+                                  </CommandItem>
+                                ))}
+                              </CommandGroup>
+                            </CommandList>
+                          </Command>
+                        </PopoverContent>
+                      </Popover>
+                      {/* <FormDescription>Enter per call price.</FormDescription> */}
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="usageType"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel>Type</FormLabel>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <FormControl>
+                            <Button
+                              variant="outline"
+                              role="combobox"
+                              className={cn(
+                                "w-[200px] justify-between",
+                                !field.value && "text-muted-foreground"
+                              )}
+                            >
+                              {field.value
+                                ? usageType.find(
+                                    (price) => price.value === field.value
+                                  )?.label
+                                : "Select Type"}
+                              <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                            </Button>
+                          </FormControl>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-[200px] p-0">
+                          <Command>
+                            <CommandInput placeholder="Search language..." />
+                            <CommandList>
+                              <CommandEmpty>No language found.</CommandEmpty>
+                              <CommandGroup>
+                                {usageType.map((language) => (
+                                  <CommandItem
+                                    value={language.label}
+                                    key={language.value}
+                                    onSelect={() => {
+                                      form.setValue(
+                                        "usageType",
+                                        language.value
+                                      );
+                                    }}
+                                  >
+                                    <Check
+                                      className={cn(
+                                        "mr-2 h-4 w-4",
+                                        language.value === field.value
+                                          ? "opacity-100"
+                                          : "opacity-0"
+                                      )}
+                                    />
+                                    {language.label}
+                                  </CommandItem>
+                                ))}
+                              </CommandGroup>
+                            </CommandList>
+                          </Command>
+                        </PopoverContent>
+                      </Popover>
+                      {/* <FormDescription>Enter per call price.</FormDescription> */}
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
               <div className="flex w-full  ">
                 <div className="w-full">
                   <FormField
@@ -386,70 +498,7 @@ export default function LenderForm() {
                   />
                 </div>
               </div>
-              <FormField
-                control={form.control}
-                name="pricePerCall"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>Call Price</FormLabel>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            variant="outline"
-                            role="combobox"
-                            className={cn(
-                              "w-[200px] justify-between",
-                              !field.value && "text-muted-foreground"
-                            )}
-                          >
-                            {field.value
-                              ? pricePerCall.find(
-                                  (price) => price.value === field.value
-                                )?.label
-                              : "Select language"}
-                            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-[200px] p-0">
-                        <Command>
-                          <CommandInput placeholder="Search language..." />
-                          <CommandList>
-                            <CommandEmpty>No language found.</CommandEmpty>
-                            <CommandGroup>
-                              {pricePerCall.map((language) => (
-                                <CommandItem
-                                  value={language.label}
-                                  key={language.value}
-                                  onSelect={() => {
-                                    form.setValue(
-                                      "pricePerCall",
-                                      language.value
-                                    );
-                                  }}
-                                >
-                                  <Check
-                                    className={cn(
-                                      "mr-2 h-4 w-4",
-                                      language.value === field.value
-                                        ? "opacity-100"
-                                        : "opacity-0"
-                                    )}
-                                  />
-                                  {language.label}
-                                </CommandItem>
-                              ))}
-                            </CommandGroup>
-                          </CommandList>
-                        </Command>
-                      </PopoverContent>
-                    </Popover>
-                    {/* <FormDescription>Enter per call price.</FormDescription> */}
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+
               <FormField
                 control={form.control}
                 name="termAndConduction"

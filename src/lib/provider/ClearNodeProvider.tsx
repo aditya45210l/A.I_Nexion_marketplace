@@ -32,12 +32,13 @@ import {
 
 import { viemAdapter } from "thirdweb/adapters/viem";
 import { ethereum } from "thirdweb/chains";
-import { useActiveAccount } from "thirdweb/react";
+import { useActiveAccount, useActiveWallet } from "thirdweb/react";
 import { useBasicAuth } from "@/lib/stores/AuthStore";
 // import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 declare global {
   interface Window {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ethereum?: any;
   }
 }
@@ -54,6 +55,7 @@ const SESSION_DURATION = 3600; // 1 hour
 
 const ClearNodeProvider = ({ children }: { children: ReactNode }) => {
   const account = useActiveAccount();
+  const wallet = useActiveWallet();
   const [isAuthAttempted, setIsAuthAttempted] = useState(false);
   const [sessionExpireTimestamp, setSessionExpireTimestamp] =
     useState<string>("");
@@ -140,7 +142,7 @@ const ClearNodeProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [
     account,
-    webSocketService.status,
+    // webSocketService.status,
     isAuthenticated,
     isAuthAttempted,
     sessionKey,
@@ -179,6 +181,7 @@ const ClearNodeProvider = ({ children }: { children: ReactNode }) => {
 
   // CHAPTER 3: Handle server messages for authentication
   useEffect(() => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleMessage = async (data: any) => {
       const response = parseAnyRPCResponse(JSON.stringify(data));
       // console.log("response: ", response);
@@ -255,7 +258,7 @@ const ClearNodeProvider = ({ children }: { children: ReactNode }) => {
       if (response.method === RPCMethod.BalanceUpdate) {
         const balanceUpdate = response as BalanceUpdateResponse;
         const balances = balanceUpdate.params.balanceUpdates;
-
+                  
         // console.log("Live balance update received:", balances);
 
         // Same data transformation as above
