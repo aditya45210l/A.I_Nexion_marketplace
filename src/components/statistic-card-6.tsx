@@ -66,7 +66,7 @@ export default function ApiForRentCard({keyProps}:{keyProps:keysType}) {
   ];
 
   return (
-    <div className="flex items-center justify-center ">
+    <div className="flex items-center justify-center  overflow-hidden">
       {/* Card */}
       <Card className="w-full md:w-96">
         <CardHeader className="h-auto py-4">

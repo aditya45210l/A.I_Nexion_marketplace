@@ -142,7 +142,7 @@ const ClearNodeProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [
     account,
-    // webSocketService.status,
+    webSocketService.status,
     isAuthenticated,
     isAuthAttempted,
     sessionKey,

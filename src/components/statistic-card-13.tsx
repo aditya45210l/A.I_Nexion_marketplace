@@ -10,9 +10,9 @@ import {
 import { MoreVertical, Pin, Settings, Share2, ShieldCheck, TriangleAlert } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-export default function StatisticCard13() {
+export default function StatisticCard13({progress }:{progress:number}) {
   const total = 40;
-  const passing = 21;
+  // const passing = 21;
 
   return (
     <div className="min-h-screen flex items-center justify-center p-6 lg:p-8">
@@ -60,7 +60,7 @@ export default function StatisticCard13() {
                 key={i}
                 className={cn(
                   `inline-block w-3 h-4 rounded-sm border transition-colors`,
-                  i < passing ? 'bg-primary border-primary' : 'bg-muted border-muted',
+                  i < progress ? 'bg-primary border-primary' : 'bg-muted border-muted',
                 )}
               />
             ))}
@@ -68,8 +68,8 @@ export default function StatisticCard13() {
 
           {/* Passing Checks */}
           <div className="flex items-center justify-between text-xs text-muted-foreground mt-1">
-            <span>{passing}/16 checks passing</span>
-            <span className="font-semibold text-foreground">{Math.round((passing / total) * 100)}% assigned</span>
+            <span>{progress}/16 checks passing</span>
+            <span className="font-semibold text-foreground">{Math.round((progress / total) * 100)}% assigned</span>
           </div>
         </CardContent>
       </Card>

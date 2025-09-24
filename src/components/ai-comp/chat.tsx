@@ -90,16 +90,19 @@ const ChatBotDemo = () => {
     setInput("");
   };
 
-  const handleSubmitWithChecks =async (message: PromptInputMessage) => {
-    // try {
-    //   const data =await axios.post('/api/v1/action/decrypt-key',{
-    //     apiKey:apiKey
-    //   });
-    //   console.log('data.data: ',data.data);
+  const handleSubmitWithChecks = async (message: PromptInputMessage) => {
+    try {
+      const data = (await axios.post(`/api/v1/ai/api-auth/${apiKey}`)).data;
+      console.log("data.data: ", data);
 
-    // } catch (error) {
-    //   console.log("error happen on submit with check: ", error);
-    // }
+      if (!data.success) {
+        throw new Error("fail to transfer", data);
+      }
+      handleSubmit(message);
+      console.log('messaged send successfully');
+    } catch (error) {
+      console.log("error happen on submit with check: ", error);
+    }
   };
 
   return (

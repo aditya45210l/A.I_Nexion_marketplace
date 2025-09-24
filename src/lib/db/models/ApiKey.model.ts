@@ -71,4 +71,4 @@ const APIKeySchema = new mongoose.Schema({
 // APIKeySchema.index({ provider: 1, 'settings.isActive': 1 });
 // APIKeySchema.index({ 'reputation.rating': -1 }); // Sort by best rating
 
-export default mongoose.models.APIKey || mongoose.model('APIKey', APIKeySchema);
+export default mongoose.models?.APIKey ||mongoose.model('APIKey', APIKeySchema);

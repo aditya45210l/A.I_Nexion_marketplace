@@ -82,6 +82,10 @@ export function TestConnectButton() {
               storeSessionKey(newSessionKey);
               setSessionKey(newSessionKey);
             }
+            // const jwt_token = localStorage.getItem('your_app_name_jwt_token');
+            // if(!jwt_token){
+
+            // }
         
             webSocketService.addStatusListener(setWsStatus);
             webSocketService.connect();

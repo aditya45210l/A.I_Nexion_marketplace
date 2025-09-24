@@ -8,6 +8,17 @@ export const POST = async (req: NextRequest) => {
   try {
     const body = await req.json();
     console.log('body: ',body);
+    connectToDatabase();
+
+    // const dublicateKey = await ApiKeyModel.findOne({
+    //   lenderAddress: body.borrowerAddress,
+    //   apiKey: body.apiKey,
+    // });
+
+    if(body.lenderAddress === body.borrowerAddress){
+      throw new Error("Lender and Borrower cannot be same");
+    }
+
     const preparSessonData = {
       appSessionId: crypto.randomUUID(),
       borrowerAddress: body.borrowerAddress,
@@ -25,10 +36,11 @@ export const POST = async (req: NextRequest) => {
         jwt_auth:body.jwt_auth,
         proxy_exp_time:body.proxy_exp_time
 
-      }
+      },
+      ratePerCall:body.pricing.ratePerCall,
     };
     console.log("preparSessonData: ",preparSessonData);
-    connectToDatabase();
+
     const Session = await SessionModel.create(preparSessonData);
     if (!Session) {
       throw new Error("Session not created");

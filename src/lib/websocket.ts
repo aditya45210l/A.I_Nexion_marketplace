@@ -22,7 +22,11 @@ class WebSocketService {
   private baseReconnectDelay = 2000; // 2s
 
   public connect() {
-    if (this.socket && this.socket.readyState < 2) return;
+    if (this.socket && this.socket.readyState < 2) {
+
+      console.log("socket: ",this.socket)
+      return;
+    }
 
     const wsUrl = process.env.NEXT_PUBLIC_NITROLITE_WS_URL;
     if (!wsUrl) {

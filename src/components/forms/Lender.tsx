@@ -147,20 +147,11 @@ export default function LenderForm() {
       if (!data?.success) {
         throw new Error(data?.message || "Something went wrong");
       }
-      toast(
-        "Your key has been successfully listed! You can now manage it in your dashboard.",
-        {
-          description: "Sunday, December 03, 2023 at 9:00 AM",
-          action: {
-            label: "Undo",
-            onClick: () => console.log("Undo"),
-          },
-        }
-      );
 
-      redirect("/dashboard");
+
+      // redirect("/dashboard");
     } catch (error) {
-      setLoading(false);
+      // setLoading(false);
       console.error("Form submission error", error);
     }
   }
@@ -189,6 +180,16 @@ export default function LenderForm() {
     if (progress === 40) {
       // Delay the redirect slightly to ensure the progress bar is fully rendered at 100%
       const redirectTimer = setTimeout(() => {
+              toast(
+        "Your key has been successfully listed! You can now manage it in your dashboard.",
+        {
+          description: "Sunday, December 03, 2023 at 9:00 AM",
+          action: {
+            label: "Undo",
+            onClick: () => console.log("Undo"),
+          },
+        }
+      );
         router.push("/dashboard");
       }, 50); // 500ms delay
 
@@ -197,7 +198,7 @@ export default function LenderForm() {
   }, [progress, router]);
 
   if (loading) {
-    <StatisticCard13 />;
+    return <StatisticCard13 progress={progress} />;
   }
 
   return (

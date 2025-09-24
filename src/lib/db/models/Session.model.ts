@@ -65,6 +65,8 @@ const SessionSchema = new mongoose.Schema(
         },
       ],
     },
+    ratePerCall: { type: String, required: true },
+
 
     // ⏰ TIME TRACKING
     timeline: {
